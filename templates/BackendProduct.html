@@ -1,0 +1,24 @@
+<style>
+    .productorders{
+        display: none;
+    }
+</style>
+<div class="productorders">
+    {foreach $data as $sku_id => $orders}
+    <div data-id="{$sku_id}">
+        {foreach $orders as $order}
+        <a style="{$order.style}" href="?action=orders#/orders/id={$order.id}/">{$order.id_str}</a>
+        {/foreach}
+    </div>
+    {/foreach}
+</div>
+<script>
+
+    $(function() {
+        $('.s-product-skus tr').each(function() {
+            var sku_id = $(this).data('id');
+            var td = $('<td class="s-orders">' + $('.productorders div[data-id="' + sku_id + '"]').html() + '</td>');
+            $(this).find('td.s-stock').after(td);
+        });
+    });
+</script>
